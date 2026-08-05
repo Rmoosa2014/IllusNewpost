@@ -201,16 +201,29 @@
   .four-up .col .ig-card{ width:100%; }
 
   /* ================= SLIDE 4 : scrolly mockup ================= */
-  .scrolly{ display:grid; grid-template-columns:280px 1fr; gap:70px; align-items:start; }
+  .scrolly{ 
+    display: grid; 
+    grid-template-columns: 340px 1fr; /* Increased first column width to accommodate the larger mockup */
+    gap: 220px; /* Increased gap between the mockup and the right text group */
+    align-items: start; margin-top: 100px;
+  }
   @media (max-width:880px){ .scrolly{ grid-template-columns:1fr; } }
   
   .scrolly-phone-wrap{ 
-    position:sticky; 
-    top:calc(50vh - 230px); /* 230px is exactly half the phone height, perfectly centering it */
-    display:flex; justify-content:center; align-self:start; 
+    position: sticky; 
+    top: calc(50vh - 230px); 
+    display: flex; justify-content: center; align-self: start; 
     z-index: 10; 
+    margin-left: 255px; /* Pushes the mockup further away from the left edge */
   }
-  @media (max-width:880px){ .scrolly-phone-wrap{ position:static; margin-bottom:40px; } }
+  
+  /* Slightly increases the size of the mockup */
+  .scrolly-phone-wrap .phone-shell {
+    transform: scale(1.15); /* Magnifies the phone by 15% */
+    transform-origin: center center;
+  }
+
+  @media (max-width:880px){ .scrolly-phone-wrap{ position:static; margin-bottom:40px; margin-left: 0; } }
 
   .scrolly-track{ 
     display:flex; flex-direction:column; 
@@ -227,7 +240,7 @@
   .scrolly-step p{ font-size:14px; color:var(--ink-soft); line-height:1.55; max-width:44ch; }
 
   /* ================= SLIDE 5 : wireframe / color system ================= */
-  .wire-grid{ display:grid; grid-template-columns:340px 1fr; gap:56px; align-items:start; }
+  .wire-grid{ display:grid; grid-template-columns:540px 1fr; gap:50px; align-items:start; }
   @media (max-width:880px){ .wire-grid{ grid-template-columns:1fr; } }
   .wire-canvas{
     background:var(--bg-panel); border:2px dashed var(--ink-soft); border-radius:10px; padding:14px;
