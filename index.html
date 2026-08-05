@@ -2579,18 +2579,28 @@ document.getElementById('mockupFrame').src = 'data:text/html;base64,' + patchedB
 
   window.addEventListener('resize', resize);
 
-  // Use an IntersectionObserver to ONLY run physics when Slide 6 is on screen!
+  let hasTriggered = false; 
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        if (!isRunning) {
+        if (!isRunning && !hasTriggered) {
           isRunning = true;
+          hasTriggered = true; 
           initShapes();
+          updatePhysics();
+        } else if (!isRunning && hasTriggered) {
+          // If already triggered before, just resume the loop smoothly without respawning
+          isRunning = true;
           updatePhysics();
         }
       } else {
+        // When scrolling away, pause the loop AND wipe the canvas clean so nothing is frozen
         isRunning = false;
         if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        if (ctx && canvas) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
       }
     });
   }, { threshold: 0.1 });
