@@ -318,20 +318,36 @@
   
 
   /* ================= SLIDE 7 : grid compare + final mockup ================= */
-  .grid-compare{ display:grid; grid-template-columns:1fr 1fr; gap:30px; }
-  @media (max-width:820px){ .grid-compare{ grid-template-columns:1fr; } }
-  .gc-col .gc-label{ 
-    text-align:left; /* Changed from center to left */
-    font-family:'IBM Plex Mono'; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:12px; 
+  .grid-compare { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px; 
+    width: 100%;
+    margin-top: 30px;
   }
-  .gc-frame{ border-radius:10px; }
-  .gc-frame .g9{ 
-    display:grid; grid-template-columns:repeat(3,1fr); gap:1px; border-radius:10px; overflow:hidden; 
-    max-width: 520px; 
-    margin: 0; /* Changed from '0 auto' to '0' to snap the grid to the left */
+  @media (max-width: 920px) { .grid-compare { grid-template-columns: 1fr; } }
+  
+  .gc-col .gc-label { 
+    text-align: left; 
+    font-family: 'IBM Plex Mono'; 
+    font-size: 12px; 
+    letter-spacing: .08em; 
+    text-transform: uppercase; 
+    color: var(--ink-soft); 
+    margin-bottom: 12px; 
   }
-  .gc-frame .g9 .cell{ aspect-ratio:1080/1440; overflow:hidden; background:var(--bg-panel); }
-  .gc-frame .g9 .cell img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .gc-frame { border-radius: 10px; overflow: hidden; width: 100%; }
+  .gc-frame .g9 { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 1px; 
+    border-radius: 10px; 
+    overflow: hidden; 
+    width: 100%;
+    margin: 0; 
+  }
+  .gc-frame .g9 .cell { aspect-ratio: 1080/1440; overflow: hidden; background: var(--bg-panel); }
+  .gc-frame .g9 .cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
   /* 1. Create a side-by-side grid and add a massive gap to the top */
   .final-mock-outer { 
@@ -1942,22 +1958,34 @@
       <p style="margin-top:8px;">Explore the direct demonstration using an interactive 3x3 grid layout. Compare the traditional full-bleed grid against the new margin-framed post grid to clearly see and feel how negative space transforms the visual hierarchy and overall aesthetic appeal.</p>
     </div>
 
+    <!-- THREE HORIZONTAL COLUMNS GRID COMPARE -->
     <div class="grid-compare reveal">
+      <!-- Column 1: Without margin -->
       <div class="gc-col">
         <div class="gc-label">Without margin</div>
         <div class="gc-frame no-margin">
           <div class="g9" id="gridNoMargin"></div>
         </div>
       </div>
+      
+      <!-- Column 2: With margin -->
       <div class="gc-col">
         <div class="gc-label">With margin</div>
         <div class="gc-frame margin">
           <div class="g9" id="gridMargin"></div>
         </div>
       </div>
+
+      <!-- Column 3: Without margin (Featured Center) -->
+      <div class="gc-col">
+        <div class="gc-label">Margin frame layout easy notable</div>
+        <div class="gc-frame no-margin">
+          <div class="g9" id="gridCustomCenter"></div>
+        </div>
+      </div>
     </div>
 
-  <div id="insta-simulation" class="final-mock-outer reveal">
+    <div id="insta-simulation" class="final-mock-outer reveal">
       
       <!-- LEFT COLUMN: The Scaled Phone -->
       <div class="final-mock-frame">
@@ -1975,21 +2003,18 @@
         <p style="color:var(--ink-soft); font-size:16px; margin-top:20px; line-height:1.6; max-width:540px;">
           Interact directly with the real-time post mockup to experience how the content looks live on an Instagram feed. Test both the margin and non-margin grid layouts, browse through multiple sets of new four-post series, and click or swipe through to feel the exact visual impact of the feed before publication.
         </p>
-        <p style="color:var(--ink-soft); font-size:16px; margin-top:16px; line-height:1.6; max-width:540px;">
-           
-        </p>
 
-
-        <!-- NEW: Team Feedback Request -->
+        <!-- Team Feedback Request -->
         <h3 style="font-size: 24px; font-weight: 700; line-height: 1.35; margin-top: 48px; color: var(--ink);">
-    <strong>What are your thoughts on the new design<br>and brand identity?</strong>
-  </h3>
+          <strong>What are your thoughts on the new design<br>and brand identity?</strong>
+        </h3>
         <p style="color:var(--ink-soft); font-size:15px; margin-top:12px; line-height:1.6; max-width:540px;">
           We would love to hear the team's feedback on this layout, the custom signature patterns, and the overall visual direction.
         </p>
       </div>
 
     </div>
+    
     <div class="ref-note reveal" style="margin-top:26px;">
       <b>Note —</b> images and data throughout this simulation are placeholders for reference only, not final or exact content.
     </div>
@@ -2573,6 +2598,21 @@ document.getElementById('mockupFrame').src = 'data:text/html;base64,' + patchedB
 
   observer.observe(section);
 })();
+window.addEventListener('load', function() {
+  const gridCustom = document.getElementById('gridCustomCenter');
+  const gridSource = document.getElementById('gridNoMargin');
+
+  if (gridCustom && gridSource) {
+    // Copy the exact HTML structure and images from the first grid once it's populated
+    gridCustom.innerHTML = gridSource.innerHTML;
+    
+    // Target all image elements inside the 3rd grid and swap the 5th one (index 4)
+    const customImages = gridCustom.querySelectorAll('img');
+    if (customImages[4]) {
+      customImages[4].src = 'https://raw.githubusercontent.com/Rmoosa2014/IllusNewpost/main/IMG-02.png';
+    }
+  }
+});
 </script>
 </body>
 </html>
