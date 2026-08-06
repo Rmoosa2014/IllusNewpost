@@ -68,17 +68,82 @@
   .reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
   .reveal.in{ opacity:1; transform:none; }
 
-  /* ---------- reference note ---------- */
+  /* ---------- REUSABLE PATTERN TARGET POSITIONING ---------- */
+  .slide-pattern-target {
+    position: absolute; 
+    bottom: 15px; 
+    z-index: 10;
+    width: 240px; 
+    height: auto; 
+    pointer-events: none;
+    opacity: 0.2;
+  }
+  
+  /* First pattern position (Right side default) */
+  .pattern-one {
+    right: 24px;
+    transform: translateX(0px); /* Adjust horizontal position here if needed */
+  }
+
+  /* Second pattern position (Shifted left to make it two copies) */
+  .pattern-two {
+    right: 260px; /* Adjust this gap distance to place the second copy further left or right */
+    transform: translateX(0px);
+  }
+
+  .slide-pattern-target svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  @media (max-width: 720px){ 
+    .slide-pattern-target { display: none; }
+  }
+  .slide-pattern {
+    position: absolute; 
+    right: 24px; 
+    bottom: 20px; 
+    z-index: 10;
+    width: 200px; 
+    height: 40px; 
+    pointer-events: none;
+    opacity: 0.35;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 60' fill='none' stroke='%234b5442' stroke-width='1.5'%3E%3Cpath d='M0,30 H400 M50,0 V60 M150,0 V60 M250,0 V60 M350,0 V60' stroke-dasharray='4 4' opacity='0.6'/%3E%3Ccircle cx='50' cy='30' r='4' fill='%234b5442'/%3E%3Ccircle cx='150' cy='30' r='4' fill='%234b5442'/%3E%3Ccircle cx='250' cy='30' r='4' fill='%234b5442'/%3E%3Ccircle cx='350' cy='30' r='4' fill='%234b5442'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  /* ---------- MAIN COPY CONTAINER (Size, Position, Opacity Control) ---------- */
+  .copy-container {
+    position: relative;
+    max-width: 100%;                  /* Adjust container width size here */
+    transform: translate(0px, 0px);   /* Adjust container X and Y position here */
+    opacity: 1;                       /* Adjust overall container transparency here */
+    transition: all 0.3s ease;
+  }
+
+  /* ---------- BOTTOM-LEFT REFERENCE NOTE ---------- */
   .ref-note, .slide1-note-corner{
-    position: absolute; right: 24px; bottom: 16px; z-index: 20;
-    font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--ink-soft);
-    background: transparent !important; border: none !important; border-radius: 0 !important; 
-    padding: 0 !important; white-space: nowrap; line-height: 1.4;
+    position: absolute; 
+    left: 32px; 
+    bottom: 20px; 
+    z-index: 20;
+    font-family: 'IBM Plex Mono', monospace; 
+    font-size: 9.5px; 
+    color: var(--ink-soft);
+    background: transparent !important; 
+    border: none !important; 
+    padding: 0 !important; 
+    white-space: nowrap; 
+    line-height: 1.4;
     margin-top: 0 !important;
   }
   .ref-note b, .slide1-note-corner b{ color: var(--brand-olive-d); }
+
   @media (max-width: 720px){ 
     .ref-note, .slide1-note-corner { position: static; margin-top: 20px !important; white-space: normal; } 
+    .slide-pattern { display: none; }
   }
   /* ================= HERO / SLIDE 01 ================= */
   .hero{
@@ -388,9 +453,11 @@
 <nav class="navdots" id="navdots"></nav>
 
 <!-- ============ SLIDE 01 : HERO + FEED SIMULATOR ============ -->
-<section id="s-slide1" class="hero">
-  <div class="wrap">    <div class="hero-grid">
-      <div>
+<section id="s-slide1" class="hero" style="position: relative;">
+  <div class="wrap">
+    <div class="hero-grid">
+      <!-- WRAPPED ALL COPY CONTENT INSIDE THE MAIN CONTAINER -->
+      <div class="copy-container">
         <span class="eyebrow">Content Proposal — New Instagram Carousel Post System</span>
         <h1>From simply display product to a <em>HOOK Caption</em>, problem solving strategy in four swipes.</h1>
         <p class="lead">A proposed redesign of how ILLUS posts to Instagram — replacing single-image and two-image posts with one consistent four-slide carousel structure: problem, solution, product, brand. Built to stop the scroll, hold attention, and look unmistakably like ILLUS in a crowded feed.</p>
@@ -478,14 +545,20 @@
       </div>
     </div>
   </div>
+  <!-- BOTTOM-LEFT NOTE -->
   <div class="ref-note">
-  <b>Note —</b> imagery and copy shown are placeholders for reference only, not final or exact content.
-</div>
+    <b>Note —</b> all images and sample data shown are placeholders for reference only, not final or exact content.
+  </div>
+
+  <!-- BOTTOM-RIGHT REUSABLE PATTERN TARGET (INJECTS AUTOMATICALLY) -->
+  <div class="slide-pattern-target pattern-one"></div>
+<div class="slide-pattern-target pattern-two"></div>
+
 </section>
 <div class="wrap"><div class="divider"></div></div>
 
 <!-- ============ SLIDE 02 : CHARACTER VS NO CHARACTER ============ -->
-<section id="s-slide2" class="section-pad" style="background:var(--bg-panel);">
+<section id="s-slide2" class="section-pad" style="position: relative; background:var(--bg-panel);">
   <div class="wrap">
     <div class="slide2-split reveal">
       
@@ -544,14 +617,18 @@
       
     </div>
     
-    <!-- BOTTOM RIGHT NOTE (CSS global fix ensures it docks correctly) -->
-    <div class="ref-note reveal">
-      <b>Note —</b> imagery and caption copy above are placeholders for layout reference only, not final creative or exact copy.
-    </div>
+    <!-- BOTTOM-LEFT NOTE -->
+  <div class="ref-note">
+    <b>Note —</b> all images and sample data shown are placeholders for reference only, not final or exact content.
   </div>
+
+  <!-- BOTTOM-RIGHT REUSABLE PATTERN TARGET (INJECTS AUTOMATICALLY) -->
+  <div class="slide-pattern-target pattern-one"></div>
+<div class="slide-pattern-target pattern-two"></div>
+
 </section>
 <!-- ============ SLIDE 03 : THE FOUR-SLIDE CAROUSEL ============ -->
-<section id="s-slide3" class="section-pad">
+<section id="s-slide3" class="section-pad" style="position: relative; padding-bottom: 180px;">
   <div class="wrap">
     <div class="shead reveal">
       <span class="eyebrow">03 — The Four-Slide Carousel</span>
@@ -588,10 +665,15 @@
         </div>
       </div>
     </div>
-    <div class="ref-note reveal" style="margin-top:30px;">
-      <b>Note —</b> images shown are placeholders for reference only, not final or exact content.
-    </div>
+    <!-- BOTTOM-LEFT NOTE -->
+  <div class="ref-note">
+    <b>Note —</b> all images and sample data shown are placeholders for reference only, not final or exact content.
   </div>
+
+  <!-- BOTTOM-RIGHT REUSABLE PATTERN TARGET (INJECTS AUTOMATICALLY) -->
+  <div class="slide-pattern-target pattern-one"></div>
+<div class="slide-pattern-target pattern-two"></div>
+
 </section>
 <div class="wrap"><div class="divider"></div></div>
 
@@ -649,18 +731,23 @@
         </div>
       </div>
     </div>
-    <div class="ref-note reveal" style="margin-top:10px;">
-      <b>Note —</b> layout sample and copy are placeholders for reference only, not final or exact content.
-    </div>
+    <!-- BOTTOM-LEFT NOTE -->
+  <div class="ref-note">
+    <b>Note —</b> all images and sample data shown are placeholders for reference only, not final or exact content.
   </div>
+
+  <!-- BOTTOM-RIGHT REUSABLE PATTERN TARGET (INJECTS AUTOMATICALLY) -->
+  <div class="slide-pattern-target pattern-one"></div>
+<div class="slide-pattern-target pattern-two"></div>
+
 </section>
 
 <div class="wrap"><div class="divider"></div></div>
 
 <!-- ============ SLIDE 05 : WIREFRAME & COLOR SYSTEM ============ -->
-<section id="s-slide5" class="section-pad">
+<section id="s-slide5" class="section-pad" style="position: relative; padding-bottom: 180px;">
   <div class="wrap">
-    <div class="shead reveal">
+    <div class="slide2-split reveal">
       <span class="eyebrow">05 — Structural Consistency</span>
       <h2>Locked-in layout for seamless storytelling.</h2>
       <p>Every post in the carousel follows this exact structural grid, ensuring the logo, bottom pattern, and margins remain perfectly locked in place as the user swipes through the story. Built for high efficiency, the framework allows for easy data editing, quick image swapping, and effortless management of all upcoming posts.</p>
@@ -812,10 +899,15 @@
       </div>
     </div> <!-- /End of Bottom Section -->
 
-    <div class="ref-note reveal">
-      <b>Note —</b> colours, measurements and layout sample shown are for reference only, not final or exact specifications.
-    </div>
+    <!-- BOTTOM-LEFT NOTE -->
+  <div class="ref-note">
+    <b>Note —</b> all images and sample data shown are placeholders for reference only, not final or exact content.
   </div>
+
+  <!-- BOTTOM-RIGHT REUSABLE PATTERN TARGET (INJECTS AUTOMATICALLY) -->
+  <div class="slide-pattern-target pattern-one"></div>
+<div class="slide-pattern-target pattern-two"></div>
+
 </section>
 <div class="wrap"><div class="divider"></div></div>
 
@@ -1978,15 +2070,21 @@
 <div class="wrap"><div class="divider"></div></div>
 
 <!-- ============ SLIDE 07 : MARGIN COMPARISON + LIVE SIMULATION ============ -->
-<section id="s-slide7" class="section-pad">
+<section id="s-slide7" class="section-pad" style="position: relative;">
   <div class="wrap">
-    <div class="shead reveal">
+    
+    <!-- 1. WRAP ALL TOP HEADINGS AND COPY IN THE MAIN CONTAINER -->
+    <div class="copy-container reveal">
       <span class="eyebrow">07 — Layout & Composition</span>
       <h2>Introducing margin on the post.</h2>
-      <p>Introducing a deliberate margin around social media post designs on the grid. Unlike standard full-frame designs that bleed edge-to-edge and blend into the endless feed, framed posts create natural breathing room that instantly commands visual attention, elevates brand premiumness, and effectively stops the scroll.</p>
+      <p style="color:var(--ink-soft); font-size:16.5px; margin-top:16px; line-height:1.6; max-width:760px;">
+        Introducing a deliberate margin around social media post designs on the grid. Unlike standard full-frame designs that bleed edge-to-edge and blend into the endless feed, framed posts create natural breathing room that instantly commands visual attention, elevates brand premiumness, and effectively stops the scroll.
+      </p>
       
       <h3 style="font-size:20px; font-weight:700; margin-top:32px; color:var(--ink);">A side-by-side comparison:</h3>
-      <p style="margin-top:8px;">Explore the direct demonstration using an interactive 3x3 grid layout. Compare the traditional full-bleed grid against the new margin-framed post grid to clearly see and feel how negative space transforms the visual hierarchy and overall aesthetic appeal.</p>
+      <p style="color:var(--ink-soft); font-size:15px; margin-top:8px; line-height:1.5; max-width:760px;">
+        Explore the direct demonstration using an interactive 3x3 grid layout. Compare the traditional full-bleed grid against the new margin-framed post grid to clearly see and feel how negative space transforms the visual hierarchy and overall aesthetic appeal.
+      </p>
     </div>
 
     <!-- THREE HORIZONTAL COLUMNS GRID COMPARE -->
@@ -2046,15 +2144,34 @@
 
     </div>
     
-    <div class="ref-note reveal" style="margin-top:26px;">
-      <b>Note —</b> images and data throughout this simulation are placeholders for reference only, not final or exact content.
+    <!-- BOTTOM LEFT NOTE -->
+    <div class="ref-note reveal">
+      <b>Note —</b> imagery and caption copy above are placeholders for layout reference only, not final creative or exact copy.
     </div>
+
+    <!-- BOTTOM RIGHT REUSABLE PATTERN TARGET -->
+    <div class="slide-pattern-target pattern-one"></div>
+<div class="slide-pattern-target pattern-two"></div>
   </div>
 </section>
 
 <footer> </footer>
 
 <script>
+/* ---------- REUSABLE SVG PATTERN INJECTOR ---------- */
+window.addEventListener('DOMContentLoaded', () => {
+  // Grab the master SVG content from your main graphic element
+  const masterSvg = document.querySelector('#s-slide6 svg');
+  
+  if (masterSvg) {
+    const svgCode = masterSvg.outerHTML;
+    
+    // Find all placeholder targets across all slides and fill them
+    document.querySelectorAll('.slide-pattern-target').forEach(target => {
+      target.innerHTML = svgCode;
+    });
+  }
+});
 /* ---------- scroll progress + reveal + nav dots ---------- */
 const rail = document.getElementById('rail');
 window.addEventListener('scroll', () => {
