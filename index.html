@@ -68,6 +68,97 @@
   .reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
   .reveal.in{ opacity:1; transform:none; }
 
+/* ---------- AI INFLUENCER SHOWCASE GRID STYLES ---------- */
+  .influencer-showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    width: 100%;
+  }
+
+  .inf-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .inf-img-wrap {
+    position: relative;
+    width: 100%;
+    /* Enforces exact 1000x1250 aspect ratio (125%) */
+    aspect-ratio: 1000 / 1250; 
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  /* Rounded background box behind character */
+  .inf-bg-box {
+    position: absolute;
+    bottom: 0;
+    width: 85%;
+    height: 70%;
+    background-color: #d0dec2; /* Matches product/card background tone */
+    border-radius: 24px;
+    z-index: 1;
+    transition: transform 0.35s ease, background-color 0.35s ease;
+  }
+
+  /* Character PNG image maintaining aspect ratio */
+  .inf-img-wrap img {
+    position: relative;
+    z-index: 2;
+    max-height: 100%;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Typography for titles & descriptions */
+  .inf-info {
+    text-align: center;
+  }
+
+  .inf-info h4 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--ink);
+    margin: 0 0 4px 0;
+  }
+
+  .inf-info p {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin: 0;
+    opacity: 0.8;
+  }
+
+  /* ---------- MOUSE HOVER ANIMATIONS ---------- */
+  .inf-card:hover .inf-img-wrap img {
+    transform: translateY(-10px) scale(1.03); /* Lifts and slightly scales character up */
+  }
+
+  .inf-card:hover .inf-bg-box {
+    transform: scale(1.02);
+    background-color: #c4d6b5; /* Slightly deepens background tone on hover */
+  }
+
+  /* Responsive adjustment for smaller screens */
+  @media (max-width: 900px) {
+    .influencer-showcase-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+  }
+  @media (max-width: 540px) {
+    .influencer-showcase-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   /* ---------- REUSABLE PATTERN TARGET POSITIONING ---------- */
   .slide-pattern-target {
     position: absolute; 
@@ -620,9 +711,64 @@
         </div>
       </div>
       
+    </div><!-- ======================================================== -->
+    <!-- INSERT THE NEW INFLUENCER SHOWCASE GRID HERE (FULL WIDTH) -->
+    <!-- ======================================================== -->
+    <div class="influencer-showcase-grid reveal" style="margin-top: 60px;">
+      
+      <!-- Character 1: Lady -->
+      <div class="inf-card">
+        <div class="inf-img-wrap">
+          <div class="inf-bg-box"></div>
+          <img src="https://raw.githubusercontent.com/Rmoosa2014/IllusNewpost/main/Lady01.png" alt="Lady Character" loading="lazy">
+        </div>
+        <div class="inf-info">
+          <h4>LADY CHARACTER</h4>
+          <p>Designed for elegant, lifestyle-focused domestic spaces, bringing warmth, modern styling, and sophisticated everyday relatability to indoor lighting and home décor posts.</p>
+        </div>
+      </div>
+
+      <!-- Character 2: Kids -->
+      <div class="inf-card">
+        <div class="inf-img-wrap">
+          <div class="inf-bg-box"></div>
+          <img src="https://raw.githubusercontent.com/Rmoosa2014/IllusNewpost/main/Kids01.png" alt="Kids Character" loading="lazy">
+        </div>
+        <div class="inf-info">
+          <h4>KIDS CHARACTER</h4>
+          <p>Tailored for playful, energetic environments, perfectly suited for children's bedrooms, study spaces, and family-friendly smart illumination features.</p>
+        </div>
+      </div>
+
+      <!-- Character 3: Man -->
+      <div class="inf-card">
+        <div class="inf-img-wrap">
+          <div class="inf-bg-box"></div>
+          <img src="https://raw.githubusercontent.com/Rmoosa2014/IllusNewpost/main/Men01.png" alt="Man Character" loading="lazy">
+        </div>
+        <div class="inf-info">
+          <h4>MAN CHARACTER</h4>
+          <p>Built for contemporary, architectural, and sleek urban interiors, showcasing strong professional appeal, workspace lighting, and modern hardware aesthetics.</p>
+        </div>
+      </div>
+
+      <!-- Character 4: Grandpapa / Old man -->
+      <div class="inf-card">
+        <div class="inf-img-wrap">
+          <div class="inf-bg-box"></div>
+          <img src="https://raw.githubusercontent.com/Rmoosa2014/IllusNewpost/main/OldMan01.png" alt="Grandpapa Character" loading="lazy">
+        </div>
+        <div class="inf-info">
+          <h4>GRANDPA CHARACTER</h4>
+          <p>Crafted to project timeless wisdom, comfort, and heritage, ideal for classic living spaces, warm ambient lighting, and traditional hospitality settings.</p>
+        </div>
+      </div>
+
     </div>
-    
-    <!-- BOTTOM-LEFT NOTE -->
+<div style="height: 24px;"></div>
+        <div style="height: 24px;"></div>
+        <div style="height: 24px;"></div>
+    <!-- ======================================================== -->
   <div class="ref-note">
     <b>Note —</b> all images and sample data shown are placeholders for reference only, not final or exact content.
   </div>
