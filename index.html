@@ -69,14 +69,17 @@
   .reveal.in{ opacity:1; transform:none; }
 
   /* ---------- reference note ---------- */
-  .ref-note{
-    position:absolute; right:24px; bottom:16px; z-index:20; max-width:320px;
-    font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--ink-soft);
-    background:var(--bg-panel); border:1px solid var(--line); border-radius:8px; padding:6px 10px; line-height:1.4;
-    margin-top:0 !important; /* This cleanly overrides any inline margins in the HTML */
+  .ref-note, .slide1-note-corner{
+    position: absolute; right: 24px; bottom: 16px; z-index: 20;
+    font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--ink-soft);
+    background: transparent !important; border: none !important; border-radius: 0 !important; 
+    padding: 0 !important; white-space: nowrap; line-height: 1.4;
+    margin-top: 0 !important;
   }
-  .ref-note b{ color:var(--brand-olive-d); }
-  @media (max-width:720px){ .ref-note{ position:static; margin-top:20px !important; max-width:none; } }
+  .ref-note b, .slide1-note-corner b{ color: var(--brand-olive-d); }
+  @media (max-width: 720px){ 
+    .ref-note, .slide1-note-corner { position: static; margin-top: 20px !important; white-space: normal; } 
+  }
   /* ================= HERO / SLIDE 01 ================= */
   .hero{
     min-height:92vh; display:flex; flex-direction:column; justify-content:center; padding:150px 0 90px;
@@ -475,7 +478,9 @@
       </div>
     </div>
   </div>
-  <div class="slide1-note-corner"><b>Note —</b> all images and sample data shown are placeholders for reference only, not final or exact content.</div>
+  <div class="ref-note">
+  <b>Note —</b> imagery and copy shown are placeholders for reference only, not final or exact content.
+</div>
 </section>
 <div class="wrap"><div class="divider"></div></div>
 
@@ -2283,6 +2288,8 @@ const MOCKUP_HTML_B64 = "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CiA
 let decodedHtml = decodeURIComponent(escape(window.atob(MOCKUP_HTML_B64)));
 
 /* Magically scrub out the unwanted backgrounds, padding, and double borders */
+decodedHtml = decodedHtml.replace(/https:\/\/picsum\.photos\/seed\/[^\/'"]+\/\d+\/\d+/g, 'https://raw.githubusercontent.com/Rmoosa2014/IllusNewpost/main/Illuslogo-PNG.png');
+decodedHtml = decodedHtml.replace(/object-contain/g, 'object-cover w-full h-full scale-110');
 decodedHtml = decodedHtml.replace('background-color: #f0f0f0;', 'background-color: transparent;');
 decodedHtml = decodedHtml.replace('padding: 20px;', 'padding: 0;');
 decodedHtml = decodedHtml.replace('border-radius: 40px;', 'border-radius: 0px;');
@@ -2292,6 +2299,20 @@ decodedHtml = decodedHtml.replace('box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0
 /* Re-encode and inject the perfectly flush mockup */
 let patchedB64 = window.btoa(unescape(encodeURIComponent(decodedHtml)));
 document.getElementById('mockupFrame').src = 'data:text/html;base64,' + patchedB64;
+const mockupFrame = document.getElementById('mockupFrame');
+if (mockupFrame) {
+  mockupFrame.addEventListener('load', function() {
+    try {
+      const iframeDoc = mockupFrame.contentDocument || mockupFrame.contentWindow.document;
+      const profileImgs = iframeDoc.querySelectorAll('img[alt="Profile"], img[alt="Your Story"]');
+      profileImgs.forEach(img => {
+        img.src = 'https://raw.githubusercontent.com/Rmoosa2014/IllusNewpost/main/Illuslogo-PNG.png';
+      });
+    } catch (e) {
+      // Fallback
+    }
+  });
+}
 /* ---------- SLIDE 6 : Lazy-Loaded High-Performance Engine ---------- */
 (function() {
   const section = document.getElementById('s-slide6');
