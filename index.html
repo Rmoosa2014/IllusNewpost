@@ -92,15 +92,23 @@
     align-items: flex-end;
     justify-content: center;
     margin-bottom: 16px;
+
   }
 
   /* Rounded background box behind character */
   .inf-bg-box {
     position: absolute;
-    bottom: 0;
-    width: 85%;
-    height: 70%;
-    background-color: #d0dec2; /* Matches product/card background tone */
+    
+    /* CHANGE THIS: Adjust this percentage or pixel value to lift the box higher or lower */
+    bottom: 85px; 
+    
+    /* OR use this alternative method if you want absolute control over the vertical position: */
+    /* top: 20px; */ 
+    /* bottom: 10px; */
+
+    width: 65%;
+    height: 60%;
+    background-color: #d0dec2; 
     border-radius: 24px;
     z-index: 1;
     transition: transform 0.35s ease, background-color 0.35s ease;
